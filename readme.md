@@ -4,22 +4,23 @@
 <br/>
 
 <div align="center">
-  <a href="https://github.com/zyx-0314/">
-    <img src="./assets/img/nyebe_white.png" alt="Nyebe" width="130" height="100">
+  <a href="https://github.com/LtNamelin/">
+    <img src="https://pbs.twimg.com/profile_images/1774003426726494208/cROsl2JN_400x400.jpg" alt="Nyebe" width="100" height="100">
   </a>
+</div>
+
 <!-- * Title Section -->
-  <h3 align="center">AD - CI4 Template</h3>
+  <h3 align="center">Sam's Online Art Portfolio</h3>
 </div>
 
 <!-- * Description Section -->
 <div align="center">
-This repository is a beginner-friendly CodeIgniter 4 template.  
-It helps teams quickly bootstrap backend + frontend projects, with simple sample modules that show how to extend the system.
+This website is an art portfolio that will be used to upload my artworks, merchandise, contact, and commission information for those that are interested in my works.
 </div>
 
 <br/>
 
-![](https://visit-counter.vercel.app/counter.png?page=zyx-0314/ci4-template)
+![](https://visit-counter.vercel.app/counter.png?page=LtNamelin/WEBSYS-ACTIVITY_ESPIRITU_SAMUEL-TERRENCE)
 
 <!-- ! Make sure it was similar to your github -->
 

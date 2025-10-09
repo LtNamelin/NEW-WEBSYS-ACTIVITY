@@ -42,11 +42,13 @@
             <div class="cards">
                 <?= view('components/cards/card', [
                     'title' => 'Artworks include multiple original works and fanart of multiple different franchises.',
-                    'description' => 'Artworks'
+                    'description' => 'Artworks',
+                    'fontColor' => '#ffffffff'
                 ]) ?>
                 <?= view('components/cards/card_primary', [
                     'title' => 'Commission Info:',
-                    'description' => 'Type of artwork, price, quantity.'
+                    'description' => 'Type of artwork, price, quantity.',
+                    'fontColor' => '#000000ff'
                 ]) ?>
                 <?= view('components/cards/card_secondary', [
                     'title' => '"Commission and give this artist all of your money now :3c."',

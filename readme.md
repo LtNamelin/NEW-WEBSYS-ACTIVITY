@@ -20,7 +20,7 @@ This website is an art portfolio that will be used to upload my artworks, mercha
 
 <br/>
 
-![](https://visit-counter.vercel.app/counter.png?page=LtNamelin/WEBSYS-ACTIVITY_ESPIRITU_SAMUEL-TERRENCE)
+![](https://visit-counter.vercel.app/counter.png?page=https://github.com/LtNamelin/NEW-WEBSYS-ACTIVITY.git)
 
 <!-- ! Make sure it was similar to your github -->
 

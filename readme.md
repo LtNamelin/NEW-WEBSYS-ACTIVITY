@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://github.com/LtNamelin/">
-    <img src="https://pbs.twimg.com/profile_images/1774003426726494208/cROsl2JN_400x400.jpg" alt="Nyebe" width="100" height="100">
+    <img src="https://pbs.twimg.com/profile_images/1774003426726494208/cROsl2JN_400x400.jpg" alt="Namelin" width="100" height="100">
   </a>
 </div>
 
@@ -56,12 +56,11 @@ This website is an art portfolio that will be used to upload my artworks, mercha
 
 ## Overview
 
-This template provides a **minimal CodeIgniter 4 project layout** with conventions for file organization, commit practices, and simple modules.
+This website is made as an activity for IT0049 Web Systems.
 
-It is designed to be **easy to start with** and a **reference for adding new features**.
+It's an online art porfolio where I use to showcase and promote my artworks and other projects online, and provide contact information for anyone that's interested in working with me for their projects or simply commission art requests.
 
-* **Purpose**: a clean starting point for CI4 apps.
-* **Audience**: developers who want a predictable structure and quick onboarding.
+This website will include functins where admins can upload images into the artworks page to display latest works, and users can contact the artist by either using the provided contact information throughout the website or by subbmitting a commission request for the type of artwork the client wants.
 
 ### Key Components
 

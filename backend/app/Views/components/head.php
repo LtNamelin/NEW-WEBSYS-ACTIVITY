@@ -1,206 +1,160 @@
 <?php
-// Component: components/head.php
-// Data contract:
-// $title: string
+// head.php
 ?>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title><?= esc($title ?? null ? $title . ": " : "") ?>Sample kaya to hahahahaha!!!!</title>
-
-    <!-- Default CDN includes -->
-    <!-- Google Fonts: Playfair Display + Lato (global) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Font Awsome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Global base typography -->
+    <meta charset="UTF-8">
+    <title><?= $title ?? "My Website" ?></title>
     <style>
-        :root {
-            --sage-dark: #6F8E78;
-            --sage: #8DAA91;
-            --sage-light: #CFE6D7;
-
-            --rose-dark: #A87D79;
-            --rose: #C7A6A0;
-            --rose-light: #EDD9D6;
-
-            --stone-dark: #d6d6d6ff;
-            --stone: #aaaaaaff;
-            --stone-light: #c2c2c2ff;
-        }
-
-        .swatch {
-            width: 100%;
-            height: 3rem;
-            border-radius: .375rem;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        /* Button color utilities using design tokens */
-        .btn-sage {
-            background: var(--sage-dark);
-            color: white;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-sage:hover {
-            background: var(--sage);
-        }
-
-        .btn-sage-dark {
-            background: var(--sage);
-            color: white;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-sage-dark:hover {
-            background: var(--sage-dark);
-        }
-
-        .btn-rose {
-            background: var(--rose-dark);
-            color: white;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-rose:hover {
-            background: var(--rose);
-        }
-
-        .btn-rose-dark {
-            background: var(--rose);
-            color: white;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-rose-dark:hover {
-            background: var(--rose-dark);
-        }
-
-        .btn-border {
-            border-color: var(--rose);
-            border-width: 2px;
-            color: var(--rose);
-            font-weight: 600;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-border:hover {
-            color: white;
-            background: var(--rose);
-        }
-
-        .btn-border-dark {
-            border-color: var(--rose-dark);
-            border-width: 2px;
-            color: var(--rose-dark);
-            font-weight: 600;
-            transition: all;
-            transition-duration: 300ms;
-        }
-
-        .btn-border-dark:hover {
-            color: white;
-            background: var(--rose-dark);
-        }
-
-        .btn-disabled {
-            background-color: var(--stone);
-            color: white;
-            cursor: not-allowed;
-        }
-
-        /* Header CTA uses the main accent (sage-dark) */
-        .header-cta {
-            background: var(--sage-dark);
-            color: white;
-        }
-
-        .header-cta:hover {
-            background: var(--sage);
-        }
-
-        /* Small token-driven utilities */
-        .text-sage-dark {
-            color: var(--sage-dark);
-        }
-
-        .text-sage {
-            color: var(--sage);
-        }
-
-        .bg-sage-light {
-            background: var(--sage-light);
-        }
-
-        .bg-sage {
-            background: var(--sage);
-        }
-
-        .bg-sage-dark {
-            background: var(--sage-dark);
-        }
-
-        .bg-stone-light {
-            background: var(--stone-light);
-        }
-
-        /* Custom scrollbar styling using sage-light token (#CFE6D7) */
-        /* WebKit-based browsers */
-        ::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--sage-light);
-            border-radius: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
-            border-radius: 8px;
-            border: 3px solid rgba(0, 0, 0, 0.03);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--sage-dark) 0%, var(--sage) 100%);
-        }
-
-        /* Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: var(--sage-dark) var(--sage-light);
-        }
-
-        /* Utility class to apply custom scrollbars to specific containers */
-        .custom-scroll {
-            overflow: auto;
-        }
-
-        /* Base typography */
-        html,
         body {
-            font-family: 'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2E1622, #85295A);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-            font-family: 'Playfair Display', Georgia, serif;
+        header {
+            background-color: #F55DC5;
+            padding: 15px 0;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #2E1622;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        main h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 1rem 1.5rem;
+        }
+
+        .card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card p {
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: transparent;
+        }
+
+        .planned {
+            color: #4da3ff;
+            border-color: #4da3ff;
+        }
+
+        .in-progress {
+            color: #5cd67d;
+            border-color: #5cd67d;
+        }
+
+        .done {
+            color: #00e6b8;
+            border-color: #00e6b8;
+        }
+
+        .backlog {
+            color: #bbbbbb;
+            border-color: #bbbbbb;
+        }
+
+        footer {
+            background-color: #F55DC5;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            color: white;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>

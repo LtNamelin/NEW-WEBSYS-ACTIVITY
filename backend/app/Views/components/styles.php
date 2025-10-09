@@ -262,5 +262,3 @@
         padding: 30px;
     }
 </style>
-
-/* changes */

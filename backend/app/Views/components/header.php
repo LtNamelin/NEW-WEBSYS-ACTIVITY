@@ -18,5 +18,3 @@
         </a>
     </nav>
 </header>
-
-/* changes */

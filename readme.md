@@ -66,11 +66,18 @@ This website will include functins where admins can upload images into the artwo
 
 These are **sample modules** included (or suggested) for learning how to add features:
 
-| Component                 | Purpose                                                             | Notes                                                   |
-| ------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
-| **Auth (Sample)**         | Basic login/logout and role check (admin/user).                     | Uses CI4 sessions + MySQL `users` table.                |
-| **CRUD Module**           | Example entity (`Posts` or `Tasks`) with create/read/update/delete. | Demonstrates Controller → Service → Repository pattern. |
-| **Scheduler (Sample)**    | Simple to-do list with due dates.                                   | Shows how to extend with new tables and services.       |
+| Component                 | Purpose                                                                  | Notes                                                   |
+| ------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------- |
+| **Buttons**               | Basic buttons (border, disabled, primary, secondary).                    | N/A.                                                    |
+| **Cards**                 | Basic fragmented cards (primary, secondary, CTA, landing, login, signup) | N/A.                                                    |
+| **Art Carousel**          | An image carousel in landing page that showcases a number of artworks.   | N/A.                                                    |
+| **Header**                | A header file that shows up on all pages.                                | N/A.                                                    |
+| **Footer**                | A footer file that shows up on all pages.                                | N/A.                                                    |
+| **Logos**                 | Displays website logo throughout the pages.                              | N/A.                                                    |
+| **Styles**                | Php file that includes the styles of multiple fragmented components.     | N/A.                                                    |
+| **Typography**            | Php files that makes the font style consistent through all pages.        | N/A.                                                    |
+
+
 
  <!-- ! Start simple. Use these modules as **learning samples**; extend or replace them based on your project’s needs. -->
 

@@ -68,14 +68,14 @@ These are **sample modules** included (or suggested) for learning how to add fea
 
 | Component                 | Purpose                                                                  | Notes                                                   |
 | ------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------- |
-| **Buttons**               | Basic buttons (border, disabled, primary, secondary).                    | N/A.                                                    |
-| **Cards**                 | Basic fragmented cards (primary, secondary, CTA, landing, login, signup) | N/A.                                                    |
-| **Art Carousel**          | An image carousel in landing page that showcases a number of artworks.   | N/A.                                                    |
-| **Header**                | A header file that shows up on all pages.                                | N/A.                                                    |
-| **Footer**                | A footer file that shows up on all pages.                                | N/A.                                                    |
-| **Logos**                 | Displays website logo throughout the pages.                              | N/A.                                                    |
-| **Styles**                | Php file that includes the styles of multiple fragmented components.     | N/A.                                                    |
-| **Typography**            | Php files that makes the font style consistent through all pages.        | N/A.                                                    |
+| **Buttons**               | Basic buttons (border, disabled, primary, secondary).                    | There are four buttons to choose from for style.        |
+| **Cards**                 | Basic fragmented cards (primary, secondary, CTA, landing, login, signup) | Each card has different color and can edit font color.  |
+| **Art Carousel**          | An image carousel in landing page that showcases a number of artworks.   | Showcases a total of 10 different artworks that loops.  |
+| **Header**                | A header file that shows up on all pages.                                | Header file contains links for all pages                |
+| **Footer**                | A footer file that shows up on all pages.                                | Footer file that shows fullname of student dev.         |
+| **Logos**                 | Displays website logo throughout the pages.                              | Website logo is a drawing made by the developer.        |
+| **Styles**                | Php file that includes the styles of multiple fragmented components.     | Each fragmented file usually calls reference to this.   |
+| **Typography**            | Php files that makes the font style consistent through all pages.        | Font uses Play-far Display Seriff.                      |
 
 
 

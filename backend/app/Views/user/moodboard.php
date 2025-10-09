@@ -44,13 +44,14 @@
                     'title' => 'Artworks include multiple original works and fanart of multiple different franchises.',
                     'description' => 'Artworks'
                 ]) ?>
-                <?= view('components/cards/card', [
+                <?= view('components/cards/card_primary', [
                     'title' => 'Commission Info:',
                     'description' => 'Type of artwork, price, quantity.'
                 ]) ?>
-                <?= view('components/cards/card', [
+                <?= view('components/cards/card_secondary', [
                     'title' => '"Commission and give this artist all of your money now :3c."',
-                    'description' => '— Adoring Fan'
+                    'description' => '— Adoring Fan',
+                    'fontColor' => '#ffffffff'
                 ]) ?>
             </div>
         </section>

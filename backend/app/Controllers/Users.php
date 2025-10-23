@@ -46,4 +46,9 @@ class Users extends BaseController
     {
         return view('user/admindash');
     }
+
+    public function account(): string
+    {
+        return view('user/account');
+    }
 }

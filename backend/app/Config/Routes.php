@@ -13,3 +13,4 @@ $routes->get('/roadmap', 'Users::roadmap');
 $routes->get('/artworks', 'Users::artworks');
 $routes->get('/commissions', 'Users::commissions');
 $routes->get('/admindash', 'Users::admindash');
+$routes->get('/account', 'Users::account');

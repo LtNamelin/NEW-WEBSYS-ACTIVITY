@@ -12,24 +12,24 @@ class UsersSeeder extends Seeder
         // if you want password that is hashed
         $password = password_hash('Password123!', PASSWORD_DEFAULT);
 
-        $dataYouWannaInsert = [
+        $USERS_TABLE = [
             [
-                'first_name' => 'data_2',
-                'middle_name' => 'data_3',
-                'last_name' => 'data_4',
-                'email' => 'data_5',
+                'first_name' => 'data_1',
+                'middle_name' => 'data_2',
+                'last_name' => 'data_3',
+                'email' => 'data_4',
                 'password_hash' => $password,
-                'type' => 'data_7',
-                'account_status' => 'data_7',
-                'email_activated' => 'data_8',
-                'gender' => 'data_9',
-                'profile_image' => 'data_10',
+                'type' => 'data_5',
+                'account_status' => 'data_6',
+                'email_activated' => 'data_7',
+                'gender' => 'data_8',
+                'profile_image' => 'data_9',
                 'deleted_at' => null,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]
         ];
 
-        $this->db->table('USERS_TABLE')->insertBatch($dataYouWannaInsert);
+        $this->db->table('USERS_TABLE')->insertBatch($USERS_TABLE);
     }
 }

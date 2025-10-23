@@ -6,7 +6,7 @@ $user = $session->get('user');
     <nav class="navbar">
         <!-- Left: Logo -->
         <a href="https://x.com/LtNamelin" target="_blank" rel="noopener noreferrer">
-            <img src="<?= ('images/logo.png') ?>" alt="Logo" class="logo-img">
+            <img src="images/logo.png" alt="Logo" class="logo-img">
         </a>
 
         <!-- Center: Navigation Links -->
@@ -27,7 +27,12 @@ $user = $session->get('user');
                     <a href="./signup">Sign-up</a>
                 <?php else: ?>
                     <a href="./">My Account</a>
-                    <a href="./">Logout</a>
+
+                    <!-- Logout Form (POST request, hidden link) -->
+                    <form id="logoutForm" action="./logoutFunc" method="post" style="margin: 0;">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="logout-btn">Logout</button>
+                    </form>
                 <?php endif; ?>
             </div>
         </div>
@@ -97,14 +102,22 @@ $user = $session->get('user');
         border-radius: 6px;
     }
 
-    .dropdown-content a {
+    .dropdown-content a,
+    .logout-btn {
         color: white;
         padding: 12px 16px;
         text-decoration: none;
         display: block;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
     }
 
-    .dropdown-content a:hover {
+    .dropdown-content a:hover,
+    .logout-btn:hover {
         background-color: #444;
     }
 

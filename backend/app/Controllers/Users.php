@@ -40,4 +40,9 @@ class Users extends BaseController
     {
         return view('user/commissions');
     }
+
+    public function admindash(): string
+    {
+        return view('user/admindash');
+    }
 }

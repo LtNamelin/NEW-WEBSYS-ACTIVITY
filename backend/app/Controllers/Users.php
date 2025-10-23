@@ -51,4 +51,9 @@ class Users extends BaseController
     {
         return view('user/account');
     }
+
+    public function requests(): string
+    {
+        return view('user/requests');
+    }
 }

@@ -1,4 +1,6 @@
 <?php // header.php 
+$session = session();
+$user = $session->get('user');
 ?>
 <header>
     <nav class="navbar">
@@ -20,9 +22,13 @@
         <div class="dropdown">
             <button class="dropbtn">Account ▾</button>
             <div class="dropdown-content">
-                <a href="./login">Log-in</a>
-                <a href="./signup">Sign-up</a>
-                <a href="./account">My Account</a>
+                <?php if (!$user): ?>
+                    <a href="./login">Log-in</a>
+                    <a href="./signup">Sign-up</a>
+                <?php else: ?>
+                    <a href="./">My Account</a>
+                    <a href="./">Logout</a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>

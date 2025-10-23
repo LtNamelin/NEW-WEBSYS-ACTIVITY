@@ -130,7 +130,7 @@ $old = $session->getFlashdata('old') ?? [];
     </form>
 
     <p class="login-redirect">
-        Already have an account? <a href="<?= base_url('/users/login') ?>">Log in here</a>.
+        Already have an account? <a href="./login">Log in here!</a>.
     </p>
 
     <?php

@@ -31,6 +31,7 @@ class Users extends BaseController
         return view('user/roadmap');
     }
 
+    // artworks and commissions work as service pages now, added in previously.
     public function artworks(): string
     {
         return view('user/artworks');

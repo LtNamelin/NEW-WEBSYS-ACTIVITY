@@ -14,7 +14,6 @@ $title = "Sign-up";
     <!-- Sign-up content -->
     <?= view('components/cards/signup_content'); ?>
 
-    <?= view('components/footer'); ?>
 </body>
 
 </html>

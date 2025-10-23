@@ -14,8 +14,6 @@ $title = "Log-in";
     <!-- Log-in Page Content -->
     <?= view('components/cards/login_content'); ?>
 
-
-    <?= view('components/footer'); ?>
 </body>
 
 </html>

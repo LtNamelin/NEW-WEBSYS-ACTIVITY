@@ -1,5 +1,5 @@
 <?php
-// landing.php
+// artworks.php
 $title = "Artworks Page";
 ?>
 <!DOCTYPE html>

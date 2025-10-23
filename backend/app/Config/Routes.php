@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-
+// artworks and commissions now act as service pages
 /**
  * @var RouteCollection $routes
  */

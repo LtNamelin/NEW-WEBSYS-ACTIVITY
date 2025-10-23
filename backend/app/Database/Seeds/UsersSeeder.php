@@ -12,7 +12,7 @@ class UsersSeeder extends Seeder
         // if you want password that is hashed
         $password = password_hash('Password123!', PASSWORD_DEFAULT);
 
-        $dataYouWannaInsert = [
+        $USERS_TABLE = [
             [
                 'first_name' => 'data_2',
                 'middle_name' => 'data_3',
@@ -30,6 +30,6 @@ class UsersSeeder extends Seeder
             ]
         ];
 
-        $this->db->table('USERS_TABLE')->insertBatch($dataYouWannaInsert);
+        $this->db->table('USERS_TABLE')->insertBatch($USERS_TABLE);
     }
 }

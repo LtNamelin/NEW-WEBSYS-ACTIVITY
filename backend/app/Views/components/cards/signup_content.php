@@ -35,7 +35,9 @@
     $content = '
             <form>
                 <input type="text" placeholder="E-mail Account" required>
-                <input type="text" placeholder="Username" required>
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Middle Name (Optional)" optional>
+                <input type="text" placeholder="Last Name" required>
                 <input type="password" placeholder="Password" required>
                 <input type="password" placeholder="Re-Enter Password" required>
                 ' . view('components/buttons/buttonprimary', [

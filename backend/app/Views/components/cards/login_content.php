@@ -5,10 +5,8 @@ $old = $session->getFlashdata('old') ?? [];
 ?>
 
 <main class="login-page">
-    <?php
-    ob_start();
-    ?>
-    <form class="space-y-6 mt-8" action="<?= base_url('/users/loginFunc') ?>" method="post" novalidate>
+    <?php ob_start(); ?>
+    <form class="space-y-6 mt-8" action="/login" method="post" novalidate>
         <?= csrf_field() ?>
 
         <div class="form-group">
@@ -46,7 +44,7 @@ $old = $session->getFlashdata('old') ?? [];
         ]) ?>
     </form>
 
-    <p class="signup-text">Don’t have an account? <a href="./signup">Sign up!</a>.</p>
+    <p class="signup-text">Don’t have an account? <a href="/signup">Sign up!</a>.</p>
 
     <?php
     $content = ob_get_clean();

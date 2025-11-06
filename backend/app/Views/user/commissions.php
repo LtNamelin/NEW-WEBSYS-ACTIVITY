@@ -1,4 +1,5 @@
 <?php
+
 // commissions.php
 $title = "Commissions Page";
 ?>

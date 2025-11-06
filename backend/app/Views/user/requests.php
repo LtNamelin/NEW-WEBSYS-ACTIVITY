@@ -1,6 +1,5 @@
 <?php
-// signup.php
-$title = "Sign-up";
+$title = "Requests";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,12 +7,15 @@ $title = "Sign-up";
 <?= view('components/head'); ?>
 <?= view('components/styles'); ?>
 
-<body class="signup-page">
+<body>
     <?= view('components/header'); ?>
 
-    <!-- Sign-up content -->
-    <?= view('components/cards/signup_content'); ?>
+    <main>
+        <h1>Requests Page in Progress...</h1>
 
+    </main>
+
+    <?= view('components/footer'); ?>
 </body>
 
 </html>

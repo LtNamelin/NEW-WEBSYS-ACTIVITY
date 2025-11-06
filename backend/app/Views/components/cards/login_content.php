@@ -46,7 +46,7 @@ $old = $session->getFlashdata('old') ?? [];
         ]) ?>
     </form>
 
-    <p class="signup-text">Don’t have an account? <a href="./signup">Sign up</a>.</p>
+    <p class="signup-text">Don’t have an account? <a href="./signup">Sign up!</a>.</p>
 
     <?php
     $content = ob_get_clean();

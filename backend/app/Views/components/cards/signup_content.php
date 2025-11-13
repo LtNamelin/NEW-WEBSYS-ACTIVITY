@@ -48,12 +48,7 @@ $success = $session->getFlashdata('success') ?? '';
         transition: background-color 0.3s ease;
     }
 
-    .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .btn-primary:hover:not(:disabled) {
+    .btn-primary:hover {
         background-color: #e048b8;
     }
 
@@ -102,11 +97,9 @@ $success = $session->getFlashdata('success') ?? '';
             name="first_name"
             placeholder="First Name"
             required
-            value="<?= esc($old['first_name'] ?? '') ?>"
-            aria-invalid="<?= isset($errors['first_name']) ? 'true' : 'false' ?>"
-            aria-describedby="first_name-error">
+            value="<?= esc($old['first_name'] ?? '') ?>">
         <?php if (!empty($errors['first_name'])): ?>
-            <p id="first_name-error" class="error-text"><?= esc($errors['first_name']) ?></p>
+            <p class="error-text"><?= esc($errors['first_name']) ?></p>
         <?php endif; ?>
 
         <!-- Middle Name (Optional) -->
@@ -122,24 +115,20 @@ $success = $session->getFlashdata('success') ?? '';
             name="last_name"
             placeholder="Last Name"
             required
-            value="<?= esc($old['last_name'] ?? '') ?>"
-            aria-invalid="<?= isset($errors['last_name']) ? 'true' : 'false' ?>"
-            aria-describedby="last_name-error">
+            value="<?= esc($old['last_name'] ?? '') ?>">
         <?php if (!empty($errors['last_name'])): ?>
-            <p id="last_name-error" class="error-text"><?= esc($errors['last_name']) ?></p>
+            <p class="error-text"><?= esc($errors['last_name']) ?></p>
         <?php endif; ?>
 
         <!-- Gender -->
-        <select name="gender" required
-            aria-invalid="<?= isset($errors['gender']) ? 'true' : 'false' ?>"
-            aria-describedby="gender-error">
+        <select name="gender" required>
             <option value="">Select Gender</option>
             <option value="male" <?= (isset($old['gender']) && $old['gender'] === 'male') ? 'selected' : '' ?>>Male</option>
             <option value="female" <?= (isset($old['gender']) && $old['gender'] === 'female') ? 'selected' : '' ?>>Female</option>
             <option value="other" <?= (isset($old['gender']) && $old['gender'] === 'other') ? 'selected' : '' ?>>Other</option>
         </select>
         <?php if (!empty($errors['gender'])): ?>
-            <p id="gender-error" class="error-text"><?= esc($errors['gender']) ?></p>
+            <p class="error-text"><?= esc($errors['gender']) ?></p>
         <?php endif; ?>
 
         <!-- Email -->
@@ -148,11 +137,9 @@ $success = $session->getFlashdata('success') ?? '';
             name="email"
             placeholder="E-mail Address"
             required
-            value="<?= esc($old['email'] ?? '') ?>"
-            aria-invalid="<?= isset($errors['email']) ? 'true' : 'false' ?>"
-            aria-describedby="email-error">
+            value="<?= esc($old['email'] ?? '') ?>">
         <?php if (!empty($errors['email'])): ?>
-            <p id="email-error" class="error-text"><?= esc($errors['email']) ?></p>
+            <p class="error-text"><?= esc($errors['email']) ?></p>
         <?php endif; ?>
 
         <!-- Password -->
@@ -160,14 +147,12 @@ $success = $session->getFlashdata('success') ?? '';
             type="password"
             name="password"
             placeholder="Password"
-            required
-            aria-invalid="<?= isset($errors['password']) ? 'true' : 'false' ?>"
-            aria-describedby="password-error">
+            required>
         <?php if (!empty($errors['password'])): ?>
-            <p id="password-error" class="error-text"><?= esc($errors['password']) ?></p>
+            <p class="error-text"><?= esc($errors['password']) ?></p>
         <?php endif; ?>
 
-        <button type="submit" class="btn-primary" disabled>Create Account</button>
+        <button type="submit" class="btn-primary">Create Account</button>
     </form>
 
     <p class="login-redirect">
@@ -182,42 +167,3 @@ $success = $session->getFlashdata('success') ?? '';
     ]);
     ?>
 </main>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('signupForm');
-        const emailInput = form.querySelector('[name="email"]');
-        const passwordInput = form.querySelector('[name="password"]');
-        const submitBtn = form.querySelector('.btn-primary');
-
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_\-+=<>?]).{8,}$/;
-
-        function validateForm() {
-            let valid = true;
-
-            // Password validation
-            if (!passwordRegex.test(passwordInput.value)) {
-                passwordInput.style.border = "2px solid #e74c3c";
-                valid = false;
-            } else {
-                passwordInput.style.border = "2px solid #f39c12";
-            }
-
-            // Email validation
-            if (!emailInput.value || !emailInput.value.includes("@")) {
-                emailInput.style.border = "2px solid #e74c3c";
-                valid = false;
-            } else {
-                emailInput.style.border = "2px solid #f39c12";
-            }
-
-            submitBtn.disabled = !valid;
-        }
-
-        passwordInput.addEventListener('input', validateForm);
-        emailInput.addEventListener('input', validateForm);
-        form.addEventListener('input', validateForm);
-
-        validateForm(); // initial check
-    });
-</script>

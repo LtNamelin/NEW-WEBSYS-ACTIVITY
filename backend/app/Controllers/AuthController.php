@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function signup()
     {
         helper(['form']);
-        echo view('components/cards/signup_content');
+        echo view('signup'); // ✅ loads full signup layout with header, background, etc.
     }
 
     public function signupFunc()
@@ -19,45 +19,57 @@ class AuthController extends Controller
         $session = session();
         $usersModel = new UsersModel();
 
-        // Set validation rules
+        // Validation rules
         $rules = [
             'first_name' => 'required|min_length[2]',
             'last_name'  => 'required|min_length[2]',
-            'email'      => 'required|valid_email|is_unique[USERS_TABLE.email]',
+            'email'      => [
+                'rules' => 'required|valid_email|is_unique[USERS_TABLE.email]',
+                'errors' => [
+                    'is_unique' => 'This email is already registered.',
+                ],
+            ],
             'password'   => [
                 'rules' => 'required|min_length[8]|regex_match[/^(?=.*[A-Z])(?=.*[!@#\$%\^&\*])/]',
                 'errors' => [
                     'regex_match' => 'Password must contain at least one uppercase letter and one special character.'
                 ]
             ],
-            'confirm_password' => 'matches[password]'
+            'confirm_password' => [
+                'rules' => 'matches[password]',
+                'errors' => [
+                    'matches' => 'Passwords do not match.'
+                ]
+            ],
         ];
 
         if (!$this->validate($rules)) {
-            // Validation failed
-            $data['validation'] = $this->validator;
-            echo view('components/cards/signup_content', $data);
-        } else {
-            // Validation passed, insert user
-            $userData = [
-                'first_name' => $this->request->getPost('first_name'),
-                'middle_name' => $this->request->getPost('middle_name'),
-                'last_name' => $this->request->getPost('last_name'),
-                'email' => $this->request->getPost('email'),
-                'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-                'gender' => $this->request->getPost('gender')
-            ];
-
-            $usersModel->insert($userData);
-            $session->setFlashdata('success', 'Account created successfully!');
-            return redirect()->to('/login');
+            // Validation failed — keep user input and show error messages
+            $session->setFlashdata('errors', $this->validator->getErrors());
+            $session->setFlashdata('old', $this->request->getPost());
+            return redirect()->back()->withInput();
         }
+
+        // Passed validation — insert user
+        $userData = [
+            'first_name' => $this->request->getPost('first_name'),
+            'middle_name' => $this->request->getPost('middle_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'gender' => $this->request->getPost('gender'),
+        ];
+
+        $usersModel->insert($userData);
+
+        $session->setFlashdata('success', 'Account created successfully!');
+        return redirect()->to('/login');
     }
 
     public function login()
     {
         helper(['form']);
-        echo view('components/cards/login_content');
+        echo view('login'); // ✅ loads full login layout
     }
 
     public function loginFunc()
@@ -72,22 +84,21 @@ class AuthController extends Controller
         if ($data) {
             $pass = $data['password_hash'];
             if (password_verify($password, $pass)) {
-                $sessionData = [
+                $session->set([
                     'id' => $data['id'],
                     'first_name' => $data['first_name'],
                     'last_name' => $data['last_name'],
                     'isLoggedIn' => true,
-                ];
-                $session->set($sessionData);
+                ]);
                 return redirect()->to('/account');
-            } else {
-                $session->setFlashdata('error', 'Incorrect password.');
-                return redirect()->back();
             }
-        } else {
-            $session->setFlashdata('error', 'Email not found.');
+
+            $session->setFlashdata('error', 'Incorrect password.');
             return redirect()->back();
         }
+
+        $session->setFlashdata('error', 'Email not found.');
+        return redirect()->back();
     }
 
     public function logout()

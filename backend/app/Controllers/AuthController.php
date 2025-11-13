@@ -3,149 +3,96 @@
 namespace App\Controllers;
 
 use App\Models\UsersModel;
+use CodeIgniter\Controller;
 
-class AuthController extends BaseController
+class AuthController extends Controller
 {
-    /**
-     * Show the signup page
-     */
     public function signup()
     {
-        $session = session();
-        $data = [
-            'errors'  => $session->getFlashdata('errors') ?? [],
-            'old'     => $session->getFlashdata('old') ?? [],
-            'success' => $session->getFlashdata('success') ?? '',
-        ];
-
-        echo view('user/signup', $data);
+        helper(['form']);
+        echo view('components/cards/signup_content');
     }
 
-    /**
-     * Handle signup submission
-     */
     public function signupFunc()
     {
+        helper(['form']);
         $session = session();
-        $model = new UsersModel();
+        $usersModel = new UsersModel();
 
-        $postData = [
-            'first_name'  => trim($this->request->getPost('first_name')),
-            'middle_name' => trim($this->request->getPost('middle_name')),
-            'last_name'   => trim($this->request->getPost('last_name')),
-            'gender'      => trim($this->request->getPost('gender')),
-            'email'       => trim($this->request->getPost('email')),
-            'password'    => $this->request->getPost('password'),
+        // Set validation rules
+        $rules = [
+            'first_name' => 'required|min_length[2]',
+            'last_name'  => 'required|min_length[2]',
+            'email'      => 'required|valid_email|is_unique[USERS_TABLE.email]',
+            'password'   => [
+                'rules' => 'required|min_length[8]|regex_match[/^(?=.*[A-Z])(?=.*[!@#\$%\^&\*])/]',
+                'errors' => [
+                    'regex_match' => 'Password must contain at least one uppercase letter and one special character.'
+                ]
+            ],
+            'confirm_password' => 'matches[password]'
         ];
 
-        $errors = [];
-
-        // Basic validation
-        if (!$postData['first_name']) $errors['first_name'] = 'First name is required';
-        if (!$postData['last_name'])  $errors['last_name']  = 'Last name is required';
-        if (!$postData['gender'])     $errors['gender']     = 'Gender is required';
-        if (!$postData['email'])      $errors['email']      = 'Email is required';
-        if (!$postData['password'])   $errors['password']   = 'Password is required';
-
-        // Check if email already exists
-        if ($postData['email'] && $model->where('email', $postData['email'])->first()) {
-            $errors['email'] = 'Email already registered';
-        }
-
-        if (!empty($errors)) {
-            $session->setFlashdata('errors', $errors);
-            $session->setFlashdata('old', $postData);
-            return redirect()->to('./signup');
-        }
-
-        // Hash password before saving
-        $dataToInsert = [
-            'first_name'      => $postData['first_name'],
-            'middle_name'     => $postData['middle_name'] ?: null,
-            'last_name'       => $postData['last_name'],
-            'gender'          => $postData['gender'],
-            'email'           => $postData['email'],
-            'password_hash'   => password_hash($postData['password'], PASSWORD_DEFAULT),
-            'type'            => 'client',
-            'account_status'  => 1,
-            'email_activated' => 0,
-        ];
-
-        if ($model->insert($dataToInsert)) {
-            $session->setFlashdata('success', 'Account created successfully! You can now log in.');
+        if (!$this->validate($rules)) {
+            // Validation failed
+            $data['validation'] = $this->validator;
+            echo view('components/cards/signup_content', $data);
         } else {
-            $session->setFlashdata('errors', ['general' => 'Failed to create account. Please try again.']);
-        }
+            // Validation passed, insert user
+            $userData = [
+                'first_name' => $this->request->getPost('first_name'),
+                'middle_name' => $this->request->getPost('middle_name'),
+                'last_name' => $this->request->getPost('last_name'),
+                'email' => $this->request->getPost('email'),
+                'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'gender' => $this->request->getPost('gender')
+            ];
 
-        return redirect()->to('./signup');
+            $usersModel->insert($userData);
+            $session->setFlashdata('success', 'Account created successfully!');
+            return redirect()->to('/login');
+        }
     }
 
-    /**
-     * Show login page
-     */
     public function login()
     {
-        $session = session();
-        $data = [
-            'errors' => $session->getFlashdata('errors') ?? [],
-            'old'    => $session->getFlashdata('old') ?? [],
-        ];
-
-        echo view('user/login', $data);
+        helper(['form']);
+        echo view('components/cards/login_content');
     }
 
-    /**
-     * Handle login submission
-     */
     public function loginFunc()
     {
         $session = session();
         $model = new UsersModel();
 
-        $email = trim($this->request->getPost('email'));
-        $password = $this->request->getPost('password');
+        $email = $this->request->getVar('email');
+        $password = $this->request->getVar('password');
+        $data = $model->where('email', $email)->first();
 
-        $user = $model->where('email', $email)->first();
-
-        // Check credentials
-        if (!$user || !password_verify($password, $user['password_hash'])) {
-            $session->setFlashdata('errors', ['general' => 'Invalid email or password']);
-            $session->setFlashdata('old', ['email' => $email]);
-            return redirect()->to('./login');
-        }
-
-        // Create session data
-        $sessionData = [
-            'id'         => $user['id'],
-            'first_name' => $user['first_name'],
-            'last_name'  => $user['last_name'],
-            'email'      => $user['email'],
-            'type'       => $user['type'] ?? 'client',
-            'isLoggedIn' => true,
-        ];
-
-        $session->set('user', $sessionData);
-
-        // Redirect based on user type
-        if ($user['type'] === 'admin') {
-            return redirect()->to('./admindash');
+        if ($data) {
+            $pass = $data['password_hash'];
+            if (password_verify($password, $pass)) {
+                $sessionData = [
+                    'id' => $data['id'],
+                    'first_name' => $data['first_name'],
+                    'last_name' => $data['last_name'],
+                    'isLoggedIn' => true,
+                ];
+                $session->set($sessionData);
+                return redirect()->to('/account');
+            } else {
+                $session->setFlashdata('error', 'Incorrect password.');
+                return redirect()->back();
+            }
         } else {
-            return redirect()->to('./'); // or './' if your landing page is home
+            $session->setFlashdata('error', 'Email not found.');
+            return redirect()->back();
         }
     }
 
-    /**
-     * Handle logout
-     */
     public function logout()
     {
-        $session = session();
-        $session->destroy();
-
-        // Remove session cookie for complete cleanup
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 3600, $params['path'] ?? '/', $params['domain'] ?? '', isset($_SERVER['HTTPS']), true);
-
-        return redirect()->to('/');
+        session()->destroy();
+        return redirect()->to('/login');
     }
 }

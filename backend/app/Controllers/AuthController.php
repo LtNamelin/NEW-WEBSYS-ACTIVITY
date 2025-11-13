@@ -6,29 +6,35 @@ use App\Models\UsersModel;
 
 class AuthController extends BaseController
 {
+    /**
+     * Show the signup page
+     */
     public function signup()
     {
-        // Display the signup page
         $session = session();
-        $data['errors'] = $session->getFlashdata('errors') ?? [];
-        $data['old']    = $session->getFlashdata('old') ?? [];
-        $data['success'] = $session->getFlashdata('success') ?? '';
+        $data = [
+            'errors'  => $session->getFlashdata('errors') ?? [],
+            'old'     => $session->getFlashdata('old') ?? [],
+            'success' => $session->getFlashdata('success') ?? '',
+        ];
 
-        echo view('user/signup', $data); // this should point to your signup view file
+        echo view('user/signup', $data);
     }
 
+    /**
+     * Handle signup submission
+     */
     public function signupFunc()
     {
         $session = session();
         $model = new UsersModel();
 
-        // Get POST data
         $postData = [
-            'first_name'  => $this->request->getPost('first_name'),
-            'middle_name' => $this->request->getPost('middle_name'),
-            'last_name'   => $this->request->getPost('last_name'),
-            'gender'      => $this->request->getPost('gender'),
-            'email'       => $this->request->getPost('email'),
+            'first_name'  => trim($this->request->getPost('first_name')),
+            'middle_name' => trim($this->request->getPost('middle_name')),
+            'last_name'   => trim($this->request->getPost('last_name')),
+            'gender'      => trim($this->request->getPost('gender')),
+            'email'       => trim($this->request->getPost('email')),
             'password'    => $this->request->getPost('password'),
         ];
 
@@ -47,55 +53,99 @@ class AuthController extends BaseController
         }
 
         if (!empty($errors)) {
-            // Save errors and old input to flashdata
             $session->setFlashdata('errors', $errors);
             $session->setFlashdata('old', $postData);
-            return redirect()->to('/signup');
+            return redirect()->to('./signup');
         }
 
         // Hash password before saving
-        $postData['password'] = password_hash($postData['password'], PASSWORD_DEFAULT);
+        $dataToInsert = [
+            'first_name'      => $postData['first_name'],
+            'middle_name'     => $postData['middle_name'] ?: null,
+            'last_name'       => $postData['last_name'],
+            'gender'          => $postData['gender'],
+            'email'           => $postData['email'],
+            'password_hash'   => password_hash($postData['password'], PASSWORD_DEFAULT),
+            'type'            => 'client',
+            'account_status'  => 1,
+            'email_activated' => 0,
+        ];
 
-        // Insert into database
-        $model->insert($postData);
+        if ($model->insert($dataToInsert)) {
+            $session->setFlashdata('success', 'Account created successfully! You can now log in.');
+        } else {
+            $session->setFlashdata('errors', ['general' => 'Failed to create account. Please try again.']);
+        }
 
-        // Redirect with success message
-        $session->setFlashdata('success', 'Account created successfully!');
-        return redirect()->to('/signup');
+        return redirect()->to('./signup');
     }
 
+    /**
+     * Show login page
+     */
     public function login()
     {
         $session = session();
-        $data['errors'] = $session->getFlashdata('errors') ?? [];
-        $data['old']    = $session->getFlashdata('old') ?? [];
+        $data = [
+            'errors' => $session->getFlashdata('errors') ?? [],
+            'old'    => $session->getFlashdata('old') ?? [],
+        ];
 
         echo view('user/login', $data);
     }
 
+    /**
+     * Handle login submission
+     */
     public function loginFunc()
     {
         $session = session();
         $model = new UsersModel();
 
-        $email = $this->request->getPost('email');
+        $email = trim($this->request->getPost('email'));
         $password = $this->request->getPost('password');
 
         $user = $model->where('email', $email)->first();
-        if (!$user || !password_verify($password, $user['password'])) {
+
+        // Check credentials
+        if (!$user || !password_verify($password, $user['password_hash'])) {
             $session->setFlashdata('errors', ['general' => 'Invalid email or password']);
             $session->setFlashdata('old', ['email' => $email]);
-            return redirect()->to('/login');
+            return redirect()->to('./login');
         }
 
-        $session->set('user', $user);
-        return redirect()->to('/'); // redirect to home after login
+        // Create session data
+        $sessionData = [
+            'id'         => $user['id'],
+            'first_name' => $user['first_name'],
+            'last_name'  => $user['last_name'],
+            'email'      => $user['email'],
+            'type'       => $user['type'] ?? 'client',
+            'isLoggedIn' => true,
+        ];
+
+        $session->set('user', $sessionData);
+
+        // Redirect based on user type
+        if ($user['type'] === 'admin') {
+            return redirect()->to('./admindash');
+        } else {
+            return redirect()->to('./'); // or './' if your landing page is home
+        }
     }
 
+    /**
+     * Handle logout
+     */
     public function logout()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/login');
+
+        // Remove session cookie for complete cleanup
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 3600, $params['path'] ?? '/', $params['domain'] ?? '', isset($_SERVER['HTTPS']), true);
+
+        return redirect()->to('/');
     }
 }

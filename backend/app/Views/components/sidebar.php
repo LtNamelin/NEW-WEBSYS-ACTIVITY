@@ -1,6 +1,50 @@
 <?php
-// components/sidebar.php
+$session = session();
+$user = $session->get('user');
 ?>
+<aside class="admin-sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Panel</h2>
+    </div>
+
+    <div class="profile-box">
+        <?php $admin = session()->get('user'); ?>
+        <div class="profile-name">
+            <?= esc($admin['first_name'] . ' ' . $admin['last_name'] ?? '') ?>
+        </div>
+        <div class="profile-role">ADMIN</div>
+    </div>
+
+    <nav class="admin-nav">
+        <?= view('components/buttons/buttonprimary', [
+            'label' => 'Dashboard',
+            'href' => './admindash',
+            'active' => true
+        ]) ?>
+
+        <?= view('components/buttons/buttonprimary', [
+            'label' => 'Inquiries',
+            'href' => './inquiries'
+        ]) ?>
+
+        <?= view('components/buttons/buttonprimary', [
+            'label' => 'Services',
+            'href' => './services'
+        ]) ?>
+
+        <?= view('components/buttons/buttonprimary', [
+            'label' => 'Accounts',
+            'href' => './accounts'
+        ]) ?>
+
+        <!-- Logout Form -->
+        <form action="./logout" method="post" style="margin-top: 12px;">
+            <?= csrf_field() ?>
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+
+    </nav>
+</aside>
 
 <style>
     /* Fixed Sidebar - non-intrusive layout */
@@ -61,6 +105,23 @@
         font-weight: 600;
     }
 
+    /* Logout button style */
+    .logout-btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #e04b4b;
+        color: #fff;
+        border: none;
+        font-size: 0.95rem;
+        transition: background 0.2s ease;
+    }
+
+    .logout-btn:hover {
+        background-color: #c0392b;
+    }
+
     /* Ensure the main content is not hidden under sidebar */
     main.admin-dashboard-page .admin-main {
         margin-left: 260px !important;
@@ -68,43 +129,3 @@
         max-width: calc(100% - 260px);
     }
 </style>
-
-<aside class="admin-sidebar">
-    <div class="sidebar-header">
-        <h2>Admin Panel</h2>
-    </div>
-
-    <div class="profile-box">
-        <div class="profile-name"><?= esc($admin['name'] ?? '') ?></div>
-        <div class="profile-role">ADMIN</div>
-    </div>
-
-    <nav class="admin-nav">
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Dashboard',
-            'href' => './admindash',
-            'active' => true
-        ]) ?>
-
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Inquiries',
-            'href' => './inquiries'
-        ]) ?>
-
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Services',
-            'href' => './services'
-        ]) ?>
-
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Accounts',
-            'href' => './accounts'
-        ]) ?>
-
-        <!-- Logout below Accounts -->
-        <?= view('components/buttons/buttonsecondary', [
-            'label' => 'Logout',
-            'href' => './logout'
-        ]) ?>
-    </nav>
-</aside>

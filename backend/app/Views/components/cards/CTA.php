@@ -2,7 +2,7 @@
 
 $content = <<<HTML
 <div style="text-align:center;">
-    <img src="images/logo2.png" alt="Icon" class="spinning-logo">
+    <img src="/images/logo2.png" alt="Icon" class="spinning-logo">
 
     <p>Interested in working with me? <br>My commissions and contacts are open!</p>
 

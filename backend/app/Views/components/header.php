@@ -1,4 +1,4 @@
-<?php // header.php 
+<?php
 $session = session();
 $user = $session->get('user');
 ?>
@@ -6,7 +6,7 @@ $user = $session->get('user');
     <nav class="navbar">
         <!-- Left: Logo -->
         <a href="https://x.com/LtNamelin" target="_blank" rel="noopener noreferrer">
-            <img src="images/logo.png" alt="Logo" class="logo-img">
+            <img src="/images/logo.png" alt="Logo" class="logo-img">
         </a>
 
         <!-- Center: Navigation Links -->
@@ -18,29 +18,36 @@ $user = $session->get('user');
             </ul>
         </div>
 
-        <!-- Right: Dropdown Menu -->
-        <div class="dropdown">
-            <button class="dropbtn">Account ▾</button>
-            <div class="dropdown-content">
-                <?php if (!$user): ?>
-                    <a href="./login">Log-in</a>
-                    <a href="./signup">Sign-up</a>
-                <?php else: ?>
-                    <a href="./">My Account</a>
+        <!-- Right: User + Dropdown -->
+        <div class="nav-right">
+            <?php if (!empty($user) && $user['isLoggedIn']): ?>
+                <span class="user-name">
+                    <?= esc($user['first_name'] . ' ' . $user['last_name']) ?>
+                </span>
+            <?php endif; ?>
 
-                    <!-- Logout Form (POST request, hidden link) -->
-                    <form id="logoutForm" action="./logoutFunc" method="post" style="margin: 0;">
-                        <?= csrf_field() ?>
-                        <button type="submit" class="logout-btn">Logout</button>
-                    </form>
-                <?php endif; ?>
+            <div class="dropdown">
+                <button class="dropbtn">Account ▾</button>
+                <div class="dropdown-content">
+                    <?php if (empty($user) || !$user['isLoggedIn']): ?>
+                        <a href="./login">Log-in</a>
+                        <a href="./signup">Sign-up</a>
+                    <?php else: ?>
+                        <a href="./account">My Account</a>
+
+                        <!-- Logout Form -->
+                        <form id="logoutForm" action="/logout" method="post" style="margin: 0;">
+                            <?= csrf_field() ?>
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </nav>
 </header>
 
 <style>
-    /* Basic Navbar Layout */
     .navbar {
         display: flex;
         align-items: center;
@@ -52,7 +59,6 @@ $user = $session->get('user');
         height: 50px;
     }
 
-    /* Center Nav Links */
     .nav-center ul {
         list-style: none;
         display: flex;
@@ -71,7 +77,17 @@ $user = $session->get('user');
         color: #f39c12;
     }
 
-    /* Dropdown Menu Styles */
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .user-name {
+        color: #ffffffff;
+        font-weight: 600;
+    }
+
     .dropdown {
         position: relative;
         display: inline-block;
@@ -121,7 +137,6 @@ $user = $session->get('user');
         background-color: #444;
     }
 
-    /* Show dropdown on hover */
     .dropdown:hover .dropdown-content {
         display: block;
     }

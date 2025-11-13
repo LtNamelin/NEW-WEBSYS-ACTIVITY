@@ -2,7 +2,7 @@
 
 $content = <<<HTML
 <div style="text-align:center;">
-    <img src="images/descicon.png" alt="Icon" 
+    <img src="/images/descicon.png" alt="Icon" 
         style="width: 120px; height: 120px; border-radius:50%; margin-bottom:15px; object-fit:cover;">
     <p>Hello there and welcome to my website!<br>
     My name is Namelin, a digital illustrator with years of experience and have skills in Character Design, Background Art, 3D art, and currently studying programming!<br><br>
@@ -10,7 +10,7 @@ $content = <<<HTML
 
     <p><br><br> Social Media:</p>
     <a href="https://x.com/LtNamelin" target="_blank" rel="noopener noreferrer">
-        <img src="images/x_logo.png" alt="X Icon"
+        <img src="/images/x_logo.png" alt="X Icon"
             style="width: 60px; height: 60px; border-radius:50%; margin-bottom:15px; object-fit:cover;">
     </a>
 </div>

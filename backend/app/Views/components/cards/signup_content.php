@@ -75,7 +75,7 @@ $success = $session->getFlashdata('success') ?? '';
         <p class="success-text"><?= esc($success) ?></p>
     <?php endif; ?>
 
-    <form action="<?= base_url('/signupFunc') ?>" method="post" novalidate>
+    <form action="<?= base_url('/signup') ?>" method="post" novalidate>
         <?= csrf_field() ?>
 
         <!-- First Name -->

@@ -14,7 +14,7 @@ class AuthController extends BaseController
         $data['old']    = $session->getFlashdata('old') ?? [];
         $data['success'] = $session->getFlashdata('success') ?? '';
 
-        echo view('signup', $data); // this should point to your signup view file
+        echo view('user/signup', $data); // this should point to your signup view file
     }
 
     public function signupFunc()
@@ -62,5 +62,40 @@ class AuthController extends BaseController
         // Redirect with success message
         $session->setFlashdata('success', 'Account created successfully!');
         return redirect()->to('/signup');
+    }
+
+    public function login()
+    {
+        $session = session();
+        $data['errors'] = $session->getFlashdata('errors') ?? [];
+        $data['old']    = $session->getFlashdata('old') ?? [];
+
+        echo view('user/login', $data);
+    }
+
+    public function loginFunc()
+    {
+        $session = session();
+        $model = new UsersModel();
+
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $user = $model->where('email', $email)->first();
+        if (!$user || !password_verify($password, $user['password'])) {
+            $session->setFlashdata('errors', ['general' => 'Invalid email or password']);
+            $session->setFlashdata('old', ['email' => $email]);
+            return redirect()->to('/login');
+        }
+
+        $session->set('user', $user);
+        return redirect()->to('/'); // redirect to home after login
+    }
+
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/login');
     }
 }

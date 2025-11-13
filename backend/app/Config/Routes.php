@@ -11,29 +11,42 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-
+/*
+ * --------------------------------------------------------------------
+ * Router Setup
+ * --------------------------------------------------------------------
+ */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home'); // Adjust if needed
-$routes->setDefaultMethod('index');
+$routes->setDefaultController('Pages'); // Default controller
+$routes->setDefaultMethod('index');     // Default method
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
-// Home page
-$routes->get('/', 'Home::index');
+/*
+ * --------------------------------------------------------------------
+ * Static / Pages Routes
+ * --------------------------------------------------------------------
+ */
+$routes->get('/', 'Users::index');
+$routes->get('/moodboard', 'Users::moodboard');
+$routes->get('/roadmap', 'Users::roadmap');
+$routes->get('/artworks', 'Users::artworks');
+$routes->get('/commissions', 'Users::commissions');
+$routes->get('/admindash', 'Users::admindash');
+$routes->get('/account', 'Users::account');
+$routes->get('/requests', 'Users::requests');
 
-// Signup
-$routes->get('signup', 'AuthController::signup');         // Show signup form
-$routes->post('signupFunc', 'AuthController::signupFunc'); // Handle signup POST
 
-// Login
-$routes->get('login', 'AuthController::login');           // Show login form
-$routes->post('loginFunc', 'AuthController::loginFunc');  // Handle login POST
+/*
+ * --------------------------------------------------------------------
+ * Auth Routes
+ * --------------------------------------------------------------------
+ */
+$routes->get('signup', 'AuthController::signup');
+$routes->post('signup', 'AuthController::signupFunc');
 
-// Logout
-$routes->post('logoutFunc', 'AuthController::logout');    // Handle logout
+$routes->get('login', 'AuthController::login');
+$routes->post('login', 'AuthController::loginFunc');
 
-
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
-}
+$routes->post('logoutFunc', 'AuthController::logout');

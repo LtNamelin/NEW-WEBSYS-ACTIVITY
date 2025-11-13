@@ -49,4 +49,4 @@ $routes->post('signup', 'AuthController::signupFunc');
 $routes->get('login', 'AuthController::login');
 $routes->post('login', 'AuthController::loginFunc');
 
-$routes->post('logoutFunc', 'AuthController::logout');
+$routes->post('logout', 'AuthController::logout');

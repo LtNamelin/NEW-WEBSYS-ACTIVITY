@@ -1,7 +1,7 @@
 <div class="carousel-wrapper">
     <div class="carousel">
         <?php for ($i = 1; $i <= 10; $i++): ?>
-            <img src="<?= ("images/sampleart{$i}.png") ?>"
+            <img src="<?= ("/images/sampleart{$i}.png") ?>"
                 alt="Sample Artwork <?= $i ?>" class="<?= $i === 1 ? 'active' : '' ?>">
         <?php endfor; ?>
     </div>

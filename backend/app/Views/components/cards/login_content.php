@@ -1,9 +1,3 @@
-<?php
-$session = session();
-$errors = $session->getFlashdata('errors') ?? [];
-$old = $session->getFlashdata('old') ?? [];
-?>
-
 <main class="login-page">
     <?php ob_start(); ?>
     <form class="space-y-6 mt-8" action="/login" method="post" novalidate>
@@ -38,17 +32,14 @@ $old = $session->getFlashdata('old') ?? [];
             <?php endif; ?>
         </div>
 
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Log-in',
-            'type'  => 'submit'
-        ]) ?>
+        <!-- Updated button to match signup style -->
+        <button type="submit" class="btn">Log-in</button>
     </form>
 
     <p class="signup-text">Don’t have an account? <a href="/signup">Sign up!</a>.</p>
 
     <?php
     $content = ob_get_clean();
-
     echo view('components/cards/card', [
         'title'   => 'Log-in User',
         'content' => $content
@@ -74,7 +65,23 @@ $old = $session->getFlashdata('old') ?? [];
     }
 
     form input:focus {
-        outline: 2px solid #f39c12;
+        outline: 2px solid #F55DC5;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        background-color: #F55DC5;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background-color: #F55DC5;
     }
 
     .error-text {

@@ -1,3 +1,13 @@
+<?php
+$session = session();
+$user = $session->get('user');
+
+if (!$user || $user['type'] !== 'admin') {
+    return redirect()->to('./'); // redirect non-admins to landing page
+}
+?>
+
+
 <?= view('components/head'); ?>
 <?= view('components/styles'); ?>
 

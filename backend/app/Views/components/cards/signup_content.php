@@ -34,9 +34,27 @@ $success = $session->getFlashdata('success') ?? '';
         outline: 2px solid #f39c12;
     }
 
-    .signup-page .card .btn {
+    .btn-primary {
         width: 100%;
         margin-top: 15px;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        background-color: #F55DC5;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background-color: #e048b8;
     }
 
     .error-text {
@@ -75,7 +93,7 @@ $success = $session->getFlashdata('success') ?? '';
         <p class="success-text"><?= esc($success) ?></p>
     <?php endif; ?>
 
-    <form action="<?= base_url('/signup') ?>" method="post" novalidate>
+    <form id="signupForm" action="<?= base_url('/signup') ?>" method="post" novalidate>
         <?= csrf_field() ?>
 
         <!-- First Name -->
@@ -149,7 +167,7 @@ $success = $session->getFlashdata('success') ?? '';
             <p id="password-error" class="error-text"><?= esc($errors['password']) ?></p>
         <?php endif; ?>
 
-        <button type="submit" class="btn">Create Account</button>
+        <button type="submit" class="btn-primary" disabled>Create Account</button>
     </form>
 
     <p class="login-redirect">
@@ -164,3 +182,42 @@ $success = $session->getFlashdata('success') ?? '';
     ]);
     ?>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('signupForm');
+        const emailInput = form.querySelector('[name="email"]');
+        const passwordInput = form.querySelector('[name="password"]');
+        const submitBtn = form.querySelector('.btn-primary');
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_\-+=<>?]).{8,}$/;
+
+        function validateForm() {
+            let valid = true;
+
+            // Password validation
+            if (!passwordRegex.test(passwordInput.value)) {
+                passwordInput.style.border = "2px solid #e74c3c";
+                valid = false;
+            } else {
+                passwordInput.style.border = "2px solid #f39c12";
+            }
+
+            // Email validation
+            if (!emailInput.value || !emailInput.value.includes("@")) {
+                emailInput.style.border = "2px solid #e74c3c";
+                valid = false;
+            } else {
+                emailInput.style.border = "2px solid #f39c12";
+            }
+
+            submitBtn.disabled = !valid;
+        }
+
+        passwordInput.addEventListener('input', validateForm);
+        emailInput.addEventListener('input', validateForm);
+        form.addEventListener('input', validateForm);
+
+        validateForm(); // initial check
+    });
+</script>

@@ -2,11 +2,11 @@
 
 $content = <<<HTML
 <div style="text-align:center;">
-    <img src="images/logo2.png" alt="Icon" class="spinning-logo">
+    <img src="/images/logo2.png" alt="Icon" class="spinning-logo">
 
     <p>Interested in working with me? <br>My commissions and contacts are open!</p>
 
-    <p><br><br> Email: SampleEmailKo@gmail.com<br></p>
+    <p><br><br> Email: LTNamelinBus@gmail.com<br></p>
     <a href="./commissions" class="white-link">Commission Info</a>
 </div>
 HTML;

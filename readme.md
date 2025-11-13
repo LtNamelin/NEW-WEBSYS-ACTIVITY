@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://github.com/LtNamelin/">
-    <img src="https://pbs.twimg.com/profile_images/1774003426726494208/cROsl2JN_400x400.jpg" alt="Nyebe" width="100" height="100">
+    <img src="https://pbs.twimg.com/profile_images/1774003426726494208/cROsl2JN_400x400.jpg" alt="Namelin" width="100" height="100">
   </a>
 </div>
 
@@ -56,22 +56,28 @@ This website is an art portfolio that will be used to upload my artworks, mercha
 
 ## Overview
 
-This template provides a **minimal CodeIgniter 4 project layout** with conventions for file organization, commit practices, and simple modules.
+This website is made as an activity for IT0049 Web Systems.
 
-It is designed to be **easy to start with** and a **reference for adding new features**.
+It's an online art porfolio where I use to showcase and promote my artworks and other projects online, and provide contact information for anyone that's interested in working with me for their projects or simply commission art requests.
 
-* **Purpose**: a clean starting point for CI4 apps.
-* **Audience**: developers who want a predictable structure and quick onboarding.
+This website will include functins where admins can upload images into the artworks page to display latest works, and users can contact the artist by either using the provided contact information throughout the website or by subbmitting a commission request for the type of artwork the client wants.
 
 ### Key Components
 
 These are **sample modules** included (or suggested) for learning how to add features:
 
-| Component                 | Purpose                                                             | Notes                                                   |
-| ------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
-| **Auth (Sample)**         | Basic login/logout and role check (admin/user).                     | Uses CI4 sessions + MySQL `users` table.                |
-| **CRUD Module**           | Example entity (`Posts` or `Tasks`) with create/read/update/delete. | Demonstrates Controller → Service → Repository pattern. |
-| **Scheduler (Sample)**    | Simple to-do list with due dates.                                   | Shows how to extend with new tables and services.       |
+| Component                 | Purpose                                                                  | Notes                                                   |
+| ------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------- |
+| **Buttons**               | Basic buttons (border, disabled, primary, secondary).                    | There are four buttons to choose from for style.        |
+| **Cards**                 | Basic fragmented cards (primary, secondary, CTA, landing, login, signup) | Each card has different color and can edit font color.  |
+| **Art Carousel**          | An image carousel in landing page that showcases a number of artworks.   | Showcases a total of 10 different artworks that loops.  |
+| **Header**                | A header file that shows up on all pages.                                | Header file contains links for all pages                |
+| **Footer**                | A footer file that shows up on all pages.                                | Footer file that shows fullname of student dev.         |
+| **Logos**                 | Displays website logo throughout the pages.                              | Website logo is a drawing made by the developer.        |
+| **Styles**                | Php file that includes the styles of multiple fragmented components.     | Each fragmented file usually calls reference to this.   |
+| **Typography**            | Php files that makes the font style consistent through all pages.        | Font uses Play-far Display Seriff.                      |
+
+
 
  <!-- ! Start simple. Use these modules as **learning samples**; extend or replace them based on your project’s needs. -->
 
@@ -88,13 +94,6 @@ These are **sample modules** included (or suggested) for learning how to add fea
 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
 ![CodeIgniter](https://img.shields.io/badge/CodeIgniter-EF4223?style=for-the-badge\&logo=codeigniter\&logoColor=white)
-
-#### Databases
-
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge\&logo=postgresql\&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge\&logo=mongodb\&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge\&logo=firebase\&logoColor=black)
 
 <!-- ! Keep only the used technology -->
 

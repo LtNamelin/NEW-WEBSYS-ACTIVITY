@@ -158,6 +158,6 @@ class Users extends BaseController
             return redirect()->back()->withInput();
         }
 
-        return redirect()->to('/login');
+        return redirect()->to('user/login');
     }
 }

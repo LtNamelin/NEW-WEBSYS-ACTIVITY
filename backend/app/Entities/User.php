@@ -6,17 +6,25 @@ use CodeIgniter\Entity\Entity;
 
 class User extends Entity
 {
-    protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
+    protected $datamap = [];
 
-    // Optional: auto-hash password if you assign $user->password
-    protected function setPassword(string $password)
+    // Automatically manage date fields
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    // Cast certain fields to integer
+    protected $casts = [
+        'id'              => 'integer',
+        'account_status'  => 'integer',
+        'email_activated' => 'integer',
+    ];
+
+    /**
+     * Optional mutator for password hashing
+     * Usage: $user->password_hash = 'plainPassword';
+     */
+    protected function setPasswordHash(string $password)
     {
         $this->attributes['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    // Helper: combine full name
-    public function getFullName()
-    {
-        return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
+        return $this;
     }
 }

@@ -2,6 +2,7 @@
 $session = session();
 $errors = $session->getFlashdata('errors') ?? [];
 $old = $session->getFlashdata('old') ?? [];
+$success = $session->getFlashdata('success') ?? '';
 ?>
 
 <style>
@@ -18,7 +19,8 @@ $old = $session->getFlashdata('old') ?? [];
         text-align: center;
     }
 
-    .signup-page form input {
+    .signup-page form input,
+    .signup-page form select {
         width: 100%;
         padding: 10px;
         margin: 10px 0;
@@ -27,7 +29,8 @@ $old = $session->getFlashdata('old') ?? [];
         font-size: 1rem;
     }
 
-    .signup-page form input:focus {
+    .signup-page form input:focus,
+    .signup-page form select:focus {
         outline: 2px solid #f39c12;
     }
 
@@ -40,6 +43,12 @@ $old = $session->getFlashdata('old') ?? [];
         color: #e74c3c;
         font-size: 0.9rem;
         margin-top: -5px;
+        margin-bottom: 10px;
+    }
+
+    .success-text {
+        color: #27ae60;
+        font-size: 0.95rem;
         margin-bottom: 10px;
     }
 
@@ -62,7 +71,11 @@ $old = $session->getFlashdata('old') ?? [];
 <main class="signup-page">
     <?php ob_start(); ?>
 
-    <form action="<?= base_url('/users/signupFunc') ?>" method="post" novalidate>
+    <?php if ($success): ?>
+        <p class="success-text"><?= esc($success) ?></p>
+    <?php endif; ?>
+
+    <form action="<?= base_url('/signup') ?>" method="post" novalidate>
         <?= csrf_field() ?>
 
         <!-- First Name -->
@@ -98,6 +111,19 @@ $old = $session->getFlashdata('old') ?? [];
             <p id="last_name-error" class="error-text"><?= esc($errors['last_name']) ?></p>
         <?php endif; ?>
 
+        <!-- Gender -->
+        <select name="gender" required
+            aria-invalid="<?= isset($errors['gender']) ? 'true' : 'false' ?>"
+            aria-describedby="gender-error">
+            <option value="">Select Gender</option>
+            <option value="male" <?= (isset($old['gender']) && $old['gender'] === 'male') ? 'selected' : '' ?>>Male</option>
+            <option value="female" <?= (isset($old['gender']) && $old['gender'] === 'female') ? 'selected' : '' ?>>Female</option>
+            <option value="other" <?= (isset($old['gender']) && $old['gender'] === 'other') ? 'selected' : '' ?>>Other</option>
+        </select>
+        <?php if (!empty($errors['gender'])): ?>
+            <p id="gender-error" class="error-text"><?= esc($errors['gender']) ?></p>
+        <?php endif; ?>
+
         <!-- Email -->
         <input
             type="email"
@@ -123,10 +149,7 @@ $old = $session->getFlashdata('old') ?? [];
             <p id="password-error" class="error-text"><?= esc($errors['password']) ?></p>
         <?php endif; ?>
 
-        <?= view('components/buttons/buttonprimary', [
-            'label' => 'Create Account',
-            'type'  => 'submit'
-        ]) ?>
+        <button type="submit" class="btn">Create Account</button>
     </form>
 
     <p class="login-redirect">
@@ -136,7 +159,7 @@ $old = $session->getFlashdata('old') ?? [];
     <?php
     $content = ob_get_clean();
     echo view('components/cards/card', [
-        'title'   => 'Sign-up New User',
+        'title' => 'Sign-up New User',
         'content' => $content
     ]);
     ?>

@@ -6,25 +6,15 @@ use CodeIgniter\Model;
 
 class UsersModel extends Model
 {
-    protected $table = 'USERS_TABLE';
+    protected $table      = 'USERS_TABLE';
     protected $primaryKey = 'id';
-
+    protected $returnType = 'array'; // can also use your User entity if needed
     protected $allowedFields = [
         'first_name',
         'middle_name',
         'last_name',
         'email',
         'password_hash',
-        'type',
-        'account_status',
-        'email_activated',
-        'gender',
-        'profile_image',
-        'deleted_at',
-        'created_at',
-        'updated_at',
+        'gender'
     ];
-
-    protected $useTimestamps = true;
-    protected $returnType = 'array';
 }
